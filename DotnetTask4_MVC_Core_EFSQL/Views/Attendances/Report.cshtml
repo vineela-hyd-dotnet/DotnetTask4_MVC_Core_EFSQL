@@ -67,6 +67,7 @@
             var workHours = (att.CheckInTime.HasValue && att.CheckOutTime.HasValue)
             ? (att.CheckOutTime.Value - att.CheckInTime.Value).TotalHours
             : (double?)null;
+            //
 
             <tr>
                 <td>@att.Employee?.Name</td>
