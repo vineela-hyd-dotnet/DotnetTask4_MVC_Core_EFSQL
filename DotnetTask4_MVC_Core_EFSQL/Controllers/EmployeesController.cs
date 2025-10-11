@@ -72,13 +72,7 @@ namespace DotnetTask4_MVC_Core_EFSQL.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest();
-            }
-
-            var emp = await _employeeRepository.GetByIdAsync(employee.EmployeeId);
-            if (emp == null)
-            {
-                return NotFound();
-            }
+            }         
 
             await _employeeRepository.UpdateAsync(employee);
             return RedirectToAction("Index","Employees");
