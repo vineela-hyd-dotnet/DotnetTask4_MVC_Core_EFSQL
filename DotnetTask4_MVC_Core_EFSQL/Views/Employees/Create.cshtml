@@ -1,0 +1,39 @@
+﻿@model Employee
+
+<h1>Employee Registration Form</h1>
+
+<form asp-action="Create" asp-controller="Employees" method="post">
+    <table>
+        <tr>
+            <td><label asp-for="Name">Enter Employee Name</label></td>
+            <td><input asp-for="Name" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email">Enter Email</label></td>
+            <td><input asp-for="Email" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Designation">Enter Designation</label></td>
+            <td><input asp-for="Designation" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Department">Enter Department</label></td>
+            <td><input asp-for="Department" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="DateOfJoining">Select Date of Joining</label></td>
+            <td><input asp-for="DateOfJoining" type="date" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="IsActive">Is Active</label></td>
+            <td><input asp-for="IsActive" type="checkbox" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit" value="submit">Add Employee</button></td>
+        </tr>
+    </table>
+</form>
+
+<div>
+    <a asp-action="Index" asp-asp-controller="Employees">Back to List</a>
+</div>

@@ -1,0 +1,90 @@
+﻿@model DotnetTask4_MVC_Core_EFQL.Models.Attendance
+
+<h2>Mark Attendance Form</h2>
+
+<form asp-action="Mark" asp-controller="Attendances" method="post">
+    <table class="table">
+        <tr>
+            <td><label asp-for="EmployeeId">Select Employee</label></td>
+            <td>
+                <select asp-for="EmployeeId" asp-items="ViewBag.EmployeeList">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="EmployeeId"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Date">Select Date</label></td>
+            <td>
+                <input asp-for="Date" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Date"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Status">Status</label></td>
+            <td>
+                <select asp-for="Status" asp-items="ViewBag.StatusList">
+                    <option value="">-- Select Status --</option>
+                </select>
+                <span asp-validation-for="Status"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Department</label></td>
+            <td>
+                <select name="Department" asp-items="ViewBag.DepartmentList">
+                    <option value="">-- Select Department --</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="CheckInTime">Check-In Time</label></td>
+            <td>
+                <input asp-for="CheckInTime" type="time" />
+                <span asp-validation-for="CheckInTime"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="CheckOutTime">Check-Out Time</label></td>
+            <td>
+                <input asp-for="CheckOutTime" type="time" />
+                <span asp-validation-for="CheckOutTime"></span>
+                <span id="timeError" class="text-danger" style="display:none;">
+                    Check-Out time must be greater than Check-In time.
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Remarks">Remarks</label></td>
+            <td>
+                <input asp-for="Remarks" />
+                <span asp-validation-for="Remarks"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Mark Attendance</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div>
+    <a asp-action="Index">Back to Attendance List</a>
+</div>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const checkIn = document.querySelector("[name='CheckInTime']").value;
+            const checkOut = document.querySelector("[name='CheckOutTime']").value;
+            const errorSpan = document.getElementById("timeError");
+
+            errorSpan.style.display = "none"; 
+
+            if (checkIn && checkOut && checkOut <= checkIn) {
+                e.preventDefault();
+                errorSpan.style.display = "inline";
+            }
+        });
+    </script>
+

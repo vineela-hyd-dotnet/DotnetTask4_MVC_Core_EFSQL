@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DotnetTask4_MVC_Core_EFQL.Models.Attendance>
+
+@{
+    ViewBag.Title = "Attendance Report";
+
+    int presentCount = Model.Count(a => a.Status == "Present");
+    int absentCount = Model.Count(a => a.Status == "Absent");
+    int leaveCount = Model.Count(a => a.Status == "On Leave");
+}
+
+<h2>Attendance Report</h2>
+
+<form method="get" asp-action="Report" asp-controller="Attendances">
+    <table cellpadding="5" cellspacing="0">
+        <tr>
+            <td><label>From Date</label></td>
+            <td><input type="date" name="from" /></td>
+            <td><label>To Date</label></td>
+            <td><input type="date" name="to" /></td>
+        </tr>
+        <tr>
+            <td><label>Employee</label></td>
+            <td>
+                <select name="employeeId">
+                    <option value="">-- All Employees --</option>
+                    @foreach (var emp in ViewBag.Employees)
+                    {
+                        <option value="@emp.EmployeeId">@emp.Name</option>
+                    }
+                </select>
+            </td>
+            <td><label>Status</label></td>
+            <td>
+                <select name="status">
+                    <option value="">-- All Statuses --</option>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="On Leave">On Leave</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button type="submit" class="btn btn-success">Filter</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<hr />
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Work Hours</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var att in Model)
+        {
+            var workHours = (att.CheckInTime.HasValue && att.CheckOutTime.HasValue)
+            ? (att.CheckOutTime.Value - att.CheckInTime.Value).TotalHours
+            : (double?)null;
+
+            <tr>
+                <td>@att.Employee?.Name</td>
+                <td>@att.Date.ToString("dd-MM-yyyy")</td>
+                <td>@att.Status</td>
+                <td>@(att.CheckInTime.HasValue? att.CheckInTime.Value.ToString(@"hh\:mm") : "Not marked")</td>
+                <td>@(att.CheckOutTime.HasValue? att.CheckOutTime.Value.ToString(@"hh\:mm") : "Not marked")</td>
+                <td>@(workHours.HasValue ? $"{Math.Round(workHours.Value, 2)} hrs" : "N/A")</td>
+                <td>@att.Remarks</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h4>Leave Summary</h4>
+<ul>
+    <li>Total Present: <strong>@presentCount</strong></li>
+    <li>Total Absent: <strong>@absentCount</strong></li>
+    <li>Total On Leave: <strong>@leaveCount</strong></li>
+</ul>
+
+<div>
+    <a asp-action="Index">Back to Attendance List</a>
+</div>

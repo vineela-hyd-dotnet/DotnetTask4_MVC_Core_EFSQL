@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DotnetTask4_MVC_Core_EFQL.Models.Attendance>
+
+<h2>Attendance Home Page</h2>
+
+<p>
+    <a asp-action="Mark" asp-controller="Attendances">Add Attendance</a> |
+    <a asp-action="Report" asp-controller="Attendances">View Full Report</a>
+</p>
+
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    <thead>
+        <tr style="background-color:#f0f0f0;">
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Check-In Time</th>
+            <th>Check-Out Time</th>
+            <th>Remarks</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var att in Model)
+        {
+            <tr>
+                <td>@att.EmployeeId</td>
+                <td>@att.Employee?.Name</td>
+                <td>@att.Date.ToString("dd-MM-yyyy")</td>
+                <td>@att.Status</td>
+                <td>@(att.CheckInTime.HasValue? att.CheckInTime.Value.ToString(@"hh\:mm") : "-")</td>
+                <td>@(att.CheckOutTime.HasValue? att.CheckOutTime.Value.ToString(@"hh\:mm") : "-")</td>
+                <td>@att.Remarks</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@att.AttendanceId">Edit</a> 
+                    @* <a asp-action="Report" asp-route-employeeId="@att.EmployeeId">View Report</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+﻿@model DotnetTask4_MVC_Core_EFSQL.Models.Employee
+
+<h1>Update Employee Form</h1>
+<form asp-action="Edit" asp-controller="Employees" method="post">
+    <input type="hidden" asp-for="EmployeeId" />
+    <table>
+        <tr>
+            <td><label asp-for="Name">Enter Employee Name</label></td>
+            <td><input asp-for="Name" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email">Enter Email</label></td>
+            <td><input asp-for="Email" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Designation">Enter Designation</label></td>
+            <td><input asp-for="Designation" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Department">Enter Department</label></td>
+            <td><input asp-for="Department" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="DateOfJoining">Select Date of Joining</label></td>
+            <td><input asp-for="DateOfJoining" type="date" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="IsActive">Is Active</label></td>
+            <td><input asp-for="IsActive" type="checkbox" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit" value="submit">Update Employee</button></td>
+        </tr>
+    </table>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

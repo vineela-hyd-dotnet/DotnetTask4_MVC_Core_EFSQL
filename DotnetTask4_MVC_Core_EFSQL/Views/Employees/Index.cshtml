@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Employee>
+
+<h2>Employee Home Page</h2>
+
+<p>
+    <a asp-action="Create" asp-controller="Employees">Create New Employee</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Date Of Joining</th>
+            <th>Is Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Name</td>
+                <td>@emp.Email</td>
+                <td>@emp.Designation</td>
+                <td>@emp.Department</td>
+                <td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
+                <td>@(emp.IsActive ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@emp.EmployeeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@emp.EmployeeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@emp.EmployeeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

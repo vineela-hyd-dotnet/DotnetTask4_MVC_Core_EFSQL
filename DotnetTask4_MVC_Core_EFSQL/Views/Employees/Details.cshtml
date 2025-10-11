@@ -1,0 +1,35 @@
+﻿@model Employee
+
+<h1>Details of Employee</h1>
+
+<table>
+    <tr>
+        <th>Employee Name</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Designation</th>
+        <td>@Model.Designation</td>
+    </tr>
+    <tr>
+        <th>Department</th>
+        <td>@Model.Department</td>
+    </tr>
+    <tr>
+        <th>Date of Joining</th>
+        <td>@Model.DateOfJoining.ToString("dd-MM-yyyy")</td>
+    </tr>
+    <tr>
+        <th>Is Active</th>
+        <td>@(Model.IsActive ? "Yes" : "No")</td>
+    </tr>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.EmployeeId" >Edit</a>    |  
+    <a asp-action="Index" >Back to List</a>
+</div>
